@@ -178,6 +178,7 @@ func (ctl *Control) HandleNewProxyResp(inMsg *msg.NewProxyResp) {
 		xl.Warn("[%s] start error: %v", inMsg.ProxyName, err)
 	} else {
 		xl.Info("[%s] start proxy success", inMsg.ProxyName)
+		xl.Info("channel url: http://%s", inMsg.RemoteAddr)
 	}
 }
 
@@ -339,10 +340,13 @@ func (ctl *Control) msgHandler() {
 			}
 
 			switch m := rawMsg.(type) {
+			// 工作进程连接
 			case *msg.ReqWorkConn:
 				go ctl.HandleReqWorkConn(m)
+			//	创建代理通道
 			case *msg.NewProxyResp:
 				ctl.HandleNewProxyResp(m)
+			//	心跳
 			case *msg.Pong:
 				if m.Error != "" {
 					xl.Error("Pong contains error: %s", m.Error)

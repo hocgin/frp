@@ -17,6 +17,8 @@ package sub
 import (
 	"context"
 	"fmt"
+	"github.com/fatedier/frp/pkg/rabbit"
+	config2 "github.com/fatedier/frp/pkg/rabbit/config"
 	"net"
 	"os"
 	"os/signal"
@@ -40,6 +42,8 @@ const (
 )
 
 var (
+	id          string
+	isDev       bool
 	cfgFile     string
 	showVersion bool
 
@@ -79,6 +83,10 @@ var (
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "./frpc.ini", "config file of frpc")
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "version of frpc")
+
+	// Rabbit:: 配置信息
+	rootCmd.PersistentFlags().BoolVarP(&isDev, "is_dev", "", false, "enable rabbit dev")
+	rootCmd.PersistentFlags().StringVarP(&id, "id", "", "", "rabbit channel id")
 
 	kcpDoneCh = make(chan struct{})
 }
@@ -165,6 +173,12 @@ func parseClientCommonCfgFromCmd() (cfg config.ClientCommonConf, err error) {
 }
 
 func runClient(cfgFilePath string) error {
+	config2.InitConfig(isDev)
+
+	cfgFilePath, err := rabbit.DownloadClientConfig4Server(id)
+	if err != nil {
+		return err
+	}
 	cfg, pxyCfgs, visitorCfgs, err := config.ParseClientConfig(cfgFilePath)
 	if err != nil {
 		return err

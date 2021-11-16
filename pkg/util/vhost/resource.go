@@ -39,14 +39,16 @@ const (
         margin: 0 auto;
         font-family: Tahoma, Verdana, Arial, sans-serif;
     }
+	a {
+		font-weight: bold
+	}
 </style>
 </head>
 <body>
-<h1>The page you requested was not found.</h1>
-<p>Sorry, the page you are looking for is currently unavailable.<br/>
-Please try again later.</p>
-<p>The server is powered by <a href="https://github.com/fatedier/frp">frp</a>.</p>
-<p><em>Faithfully yours, frp.</em></p>
+<h1>请求未被处理.</h1>
+<p>1. 检查隧道代理的配置信息</p>
+<p>2. 检查被映射项目是否运行</p>
+<p love="frp">To <a href="https://www.hocgin.top" _blank="target">HOCGIN.TOP</a></p>
 </body>
 </html>
 `
