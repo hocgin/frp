@@ -1,9 +1,9 @@
-name: Build Image and Publish to Dockerhub & GPR
+name: Build Image and Publish to AliYun
 
-#on:
-#  release:
-#    types: [ created ]
-#  workflow_dispatch:
+on:
+  release:
+    types: [ created ]
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: ${{ secrets.IMAGES_HUB_REGISTRY_URL }}/${{ secrets.IMAGES_HUB_NAMESPACES }}/demo

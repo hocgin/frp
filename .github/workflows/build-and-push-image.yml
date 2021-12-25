@@ -1,14 +1,14 @@
 name: Build Image and Publish to Dockerhub & GPR
 
-on:
-  release:
-    types: [ created ]
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Image tag'
-        required: true
-        default: 'test'
+#on:
+#  release:
+#    types: [ created ]
+#  workflow_dispatch:
+#    inputs:
+#      tag:
+#        description: 'Image tag'
+#        required: true
+#        default: 'test'
 jobs:
   binary:
     name: Build Golang project
