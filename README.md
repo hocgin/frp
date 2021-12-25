@@ -12,6 +12,17 @@ frp is a fast reverse proxy to help you expose a local server behind a NAT or fi
 
 frp also has a P2P connect mode.
 
+<h3 align="center">Sponsors</h3>
+<!--special start-->
+
+<p align="center">
+  <a href="https://www.doppler.com/?utm_campaign=github_repo&utm_medium=referral&utm_content=frp&utm_source=github" target="_blank">
+    <img width="400px" src="https://raw.githubusercontent.com/fatedier/frp/dev/doc/pic/sponsor_doppler.png">
+  </a>
+</p>
+
+<!--special end-->
+
 ## Table of Contents
 
 <!-- vim-markdown-toc GFM -->
@@ -77,7 +88,9 @@ frp also has a P2P connect mode.
 
 frp is under development. Try the latest release version in the `master` branch, or use the `dev` branch for the version in development.
 
-**The protocol might change at a release and we don't promise backwards compatibility. Please check the release log when upgrading the client and the server.**
+We are working on v2 version and trying to do some code refactor and improvements. It won't be compatible with v1.
+
+We will switch v0 to v1 at the right time and only accept bug fixes and improvements instead of big feature requirements.
 
 ## Architecture
 
@@ -983,11 +996,13 @@ server_port = 7000
 type = tcpmux
 multiplexer = httpconnect
 custom_domains = test1
+local_port = 80
 
 [proxy2]
 type = tcpmux
 multiplexer = httpconnect
 custom_domains = test2
+local_port = 8080
 ```
 
 In the above configuration - frps can be contacted on port 1337 with a HTTP CONNECT header such as:
