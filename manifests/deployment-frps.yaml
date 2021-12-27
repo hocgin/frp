@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dm-frps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frps
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: frps
+    spec:
+      containers:
+        - name: frps
+          image: registry.cn-hongkong.aliyuncs.com/hocgin/frps:latest
+          ports:
+            - name: frps-http
+              containerPort: 80
+            - name: frps-https
+              containerPort: 443
+            - name: frps-common
+              containerPort: 7000
+            - name: frps-udp
+              containerPort: 7001
+            - name: frps-dashboard
+              containerPort: 7500
+          volumeMounts:
+            - name: vl-frps-conf
+              mountPath: "/etc/frp/"
+          livenessProbe:
+            tcpSocket:
+              port: frps-common
+            initialDelaySeconds: 100
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 5
+      volumes:
+        - name: vl-frps-conf
+          configMap:
+            name: cm-frps-conf

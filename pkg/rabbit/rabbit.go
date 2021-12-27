@@ -16,14 +16,14 @@ func DownloadClientConfig4Server(channelId string) (
 	// 1. 获取配置信息
 	data, err := api.GetChannelInfo(channelId)
 	if err != nil {
-		err = fmt.Errorf("获取隧道[channelId=%s]信息错误, error: %v", channelId, err)
+		err = fmt.Errorf("获取隧道[id=%s]信息错误, error: %v", channelId, err)
 		return
 	}
 
 	// 2. 保存配置文件
 	cfgFilePath, err = saveRabbit2Cfg(data.CnvStr)
 	if err != nil {
-		err = fmt.Errorf("保存隧道[channelId=%s]信息错误, error: %v", channelId, err)
+		err = fmt.Errorf("保存隧道[id=%s]信息错误, error: %v", channelId, err)
 		return
 	}
 	return
